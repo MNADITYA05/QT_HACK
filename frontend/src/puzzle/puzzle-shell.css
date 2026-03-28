@@ -1,0 +1,74 @@
+/* Simulator shell: shader shows through */
+body.puzzle-sim-body {
+  background: #030508 !important;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.sim-top-bar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px 6px;
+  border-bottom: 1px solid rgba(26, 32, 64, 0.6);
+  background: linear-gradient(180deg, rgba(8, 12, 24, 0.85), rgba(6, 10, 20, 0.4));
+  backdrop-filter: blur(10px);
+}
+
+.sim-top-bar a {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cyan) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.sim-top-bar a:hover {
+  color: var(--pink) !important;
+  text-shadow: 0 0 12px rgba(255, 45, 111, 0.35);
+}
+
+.sim-top-bar .sim-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+}
+
+.sim-glass {
+  position: relative;
+  border-radius: 14px;
+  background: linear-gradient(155deg, rgba(13, 18, 40, 0.72), rgba(6, 10, 20, 0.45));
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+}
+
+.left-panel.sim-glass,
+.right-panel.sim-glass {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid rgba(26, 32, 64, 0.55);
+  box-shadow: inset -1px 0 0 rgba(0, 229, 255, 0.06);
+}
+
+.right-panel.sim-glass {
+  border-right: none;
+  border-left: 1px solid rgba(26, 32, 64, 0.55);
+  box-shadow: inset 1px 0 0 rgba(179, 136, 255, 0.06);
+}
+
+.circuit-container.sim-glass {
+  overflow: hidden;
+}
+
+.instruction-bar {
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.06);
+}

@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Lexend", ui-sans-serif, system-ui, sans-serif;
+    margin: 0;
+    background: #030508;
+  }
+}
+
+@keyframes vortex-slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .vortex-animate-seq {
+    animation: vortex-slide-in-up 0.8s both;
+  }
+
+  .vortex-heading {
+    font-family: var(--font-lexend);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.5em;
+  }
+
+  .vortex-h1 {
+    font-size: 48px;
+    line-height: 1.05;
+  }
+
+  @media (min-width: 768px) {
+    .vortex-h1 {
+      font-size: 64px;
+    }
+  }
+
+  .vortex-h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .vortex-outline {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .vortex-outline-btn {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    box-shadow: none;
+  }
+}

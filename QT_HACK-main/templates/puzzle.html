@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum multiplier simulator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Lexend:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TUTORIAL OVERLAY -->
+    <div class="tutorial-overlay" id="tutorial-overlay">
+        <div class="tutorial-backdrop" id="tutorial-backdrop"></div>
+        <div class="tutorial-modal" id="tutorial-modal">
+            <div class="tutorial-header">
+                <div class="tutorial-step-indicator" id="tutorial-step-indicator"></div>
+                <button class="tutorial-close" id="tutorial-close">&times;</button>
+            </div>
+            <div class="tutorial-icon" id="tutorial-icon"></div>
+            <h2 class="tutorial-title" id="tutorial-title"></h2>
+            <p class="tutorial-body" id="tutorial-body"></p>
+            <div class="tutorial-detail" id="tutorial-detail"></div>
+            <div class="tutorial-footer">
+                <button class="tutorial-btn tutorial-btn-secondary" id="tutorial-prev">&larr; Back</button>
+                <button class="tutorial-btn tutorial-btn-skip" id="tutorial-skip">Skip Tour</button>
+                <button class="tutorial-btn tutorial-btn-primary" id="tutorial-next">Next &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOP SLIDE-OUT PANEL -->
+    <div class="sop-panel" id="sop-panel">
+        <div class="sop-panel-header">
+            <h3>Standard Operating Procedure</h3>
+            <button class="sop-panel-close" id="sop-panel-close">&times;</button>
+        </div>
+        <div class="sop-panel-content">
+            <div class="sop-section"><div class="sop-section-num">01</div><div class="sop-section-content"><h4>Objective</h4><p>Build a quantum circuit implementing <strong>Booth's multiplication algorithm</strong> for two 2-bit numbers (0&ndash;3). The product must appear in P, inputs must be preserved.</p></div></div>
+            <div class="sop-section"><div class="sop-section-num">02</div><div class="sop-section-content"><h4>Interface Layout</h4><div class="sop-layout-grid"><div class="sop-area" style="border-color:var(--cyan)"><span class="sop-area-label">Left Panel</span><span class="sop-area-desc">Inputs &amp; gate palette</span></div><div class="sop-area" style="border-color:var(--green)"><span class="sop-area-label">Center</span><span class="sop-area-desc">Circuit grid</span></div><div class="sop-area" style="border-color:var(--purple)"><span class="sop-area-label">Right Panel</span><span class="sop-area-desc">Target, hints, controls, metrics</span></div></div></div></div>
+            <div class="sop-section"><div class="sop-section-num">03</div><div class="sop-section-content"><h4>Gate Reference</h4><div class="sop-gate-table"><div class="sop-gate-row"><span class="sop-gate-badge" style="background:rgba(0,229,255,0.15);color:var(--cyan)">X</span><div><strong>Pauli-X (NOT)</strong><span>Flips qubit. 1 click.</span></div></div><div class="sop-gate-row"><span class="sop-gate-badge" style="background:rgba(179,136,255,0.15);color:var(--purple)">CX</span><div><strong>CNOT</strong><span>Flips target IF control=|1&rang;. 2 clicks.</span></div></div><div class="sop-gate-row"><span class="sop-gate-badge" style="background:rgba(255,45,111,0.15);color:var(--pink)">CCX</span><div><strong>Toffoli</strong><span>Flips target IF both controls=|1&rang;. 3 clicks.</span></div></div></div></div></div>
+            <div class="sop-section"><div class="sop-section-num">04</div><div class="sop-section-content"><h4>Qubit Registers</h4><div class="sop-reg-table"><div class="sop-reg-row"><span class="sop-reg-dot" style="background:var(--cyan)"></span><strong>A</strong><span>Multiplicand</span></div><div class="sop-reg-row"><span class="sop-reg-dot" style="background:var(--purple)"></span><strong>B</strong><span>Multiplier</span></div><div class="sop-reg-row"><span class="sop-reg-dot" style="background:var(--green)"></span><strong>P</strong><span>Product</span></div><div class="sop-reg-row"><span class="sop-reg-dot" style="background:var(--yellow)"></span><strong>E</strong><span>Booth encoding</span></div><div class="sop-reg-row"><span class="sop-reg-dot" style="background:var(--orange)"></span><strong>C</strong><span>Carry</span></div></div></div></div>
+            <div class="sop-section"><div class="sop-section-num">05</div><div class="sop-section-content"><h4>Procedure</h4><div class="sop-steps"><div class="sop-step"><span class="sop-step-num">1</span><div><strong>Choose Inputs</strong><p>Select A and B from the left panel.</p></div></div><div class="sop-step"><span class="sop-step-num">2</span><div><strong>Initialize</strong><p>X gates in column 1.</p></div></div><div class="sop-step"><span class="sop-step-num">3</span><div><strong>Booth Encode</strong><p>Compute e0, e1 from B.</p></div></div><div class="sop-step"><span class="sop-step-num">4</span><div><strong>Process d0 = -b0</strong><p>Subtract A at position 0.</p></div></div><div class="sop-step"><span class="sop-step-num">5</span><div><strong>Process d1 = b0-b1</strong><p>Add/subtract A at position 1.</p></div></div><div class="sop-step"><span class="sop-step-num">6</span><div><strong>Process d2 = b1</strong><p>Add A at position 2.</p></div></div><div class="sop-step"><span class="sop-step-num">7</span><div><strong>Verify</strong><p>Check Circuit.</p></div></div></div></div></div>
+            <div class="sop-section"><div class="sop-section-num">06</div><div class="sop-section-content"><h4>Controls</h4><div class="sop-controls-table"><div class="sop-ctrl-row"><span class="sop-ctrl-key">Click gate button</span><span>Select tool</span></div><div class="sop-ctrl-row"><span class="sop-ctrl-key">Click grid cell</span><span>Place gate</span></div><div class="sop-ctrl-row"><span class="sop-ctrl-key">Drag gate</span><span>Drop to place</span></div><div class="sop-ctrl-row"><span class="sop-ctrl-key">Click existing gate</span><span>Delete it</span></div></div></div></div>
+            <div class="sop-section"><div class="sop-section-num">07</div><div class="sop-section-content"><h4>Pro Tips</h4><div class="sop-tips"><div class="sop-tip">All clicks for multi-qubit gates must be in the <strong>same column</strong>.</div><div class="sop-tip">Booth subtraction = negate A + add + 1 (two's complement).</div><div class="sop-tip">Always uncompute carries after each phase.</div></div></div></div>
+        </div>
+    </div>
+
+    <!-- MAIN 3-COLUMN LAYOUT -->
+    <div class="app-layout">
+
+        <!-- LEFT PANEL — Inputs & Gates -->
+        <aside class="left-panel" id="left-panel">
+            <div class="panel-brand">
+                <h1>&lang; Quantum Booth Multiplier &rang;</h1>
+                <p id="subtitle">Booth: 11 &times; 11 = 1001 (3 &times; 3 = 9)</p>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">INPUTS</div>
+                <div class="input-row">
+                    <span class="input-label" style="color:var(--cyan)">A</span>
+                    <div class="bit-buttons" id="a-buttons">
+                        <button data-val="0">00</button><button data-val="1">01</button><button data-val="2">10</button><button data-val="3" class="selected">11</button>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <span class="input-label" style="color:var(--purple)">B</span>
+                    <div class="bit-buttons" id="b-buttons">
+                        <button data-val="0">00</button><button data-val="1">01</button><button data-val="2">10</button><button data-val="3" class="selected">11</button>
+                    </div>
+                </div>
+                <div class="input-help">Only four values appear because this simulator uses <strong>2-bit signed numbers</strong>: 10 = -2, 11 = -1, 00 = 0, 01 = 1.</div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">GATE PALETTE</div>
+                <div class="gate-palette" id="gate-palette">
+                    <button class="gate-btn" data-gate="X" draggable="true" style="--gate-color:var(--cyan)">X<span class="gate-desc">Pauli-X</span></button>
+                    <button class="gate-btn" data-gate="CX" draggable="true" style="--gate-color:var(--purple)">CX<span class="gate-desc">CNOT</span></button>
+                    <button class="gate-btn" data-gate="CCX" draggable="true" style="--gate-color:var(--pink)">CCX<span class="gate-desc">Toffoli</span></button>
+                    <button class="gate-btn" data-gate="SWAP" draggable="true" style="--gate-color:var(--text-light)">SW<span class="gate-desc">Swap</span></button>
+                    <button class="eraser-btn gate-btn" data-gate="eraser" style="--gate-color:var(--orange)">&times;<span class="gate-desc">Eraser</span></button>
+                </div>
+            </div>
+
+            <div class="panel-footer-btns">
+                <button class="header-btn" id="btn-tour">&#9654; Tour</button>
+                <button class="header-btn" id="btn-sop">&#128203; SOP</button>
+            </div>
+        </aside>
+
+        <!-- CENTER — Circuit Grid -->
+        <main class="center-area">
+            <div class="instruction-bar" id="instruction">Select a gate from the palette, then click on the grid to place it. Click existing gates to delete.</div>
+
+            <div class="circuit-container" id="circuit-container">
+                <div class="circuit-header"><span>Circuit Grid</span><span id="gate-count">0 gates placed</span></div>
+                <div class="circuit-scroll"><svg id="circuit-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+                <div class="circuit-legend">
+                    <div class="legend-item"><span class="legend-dot" style="background:var(--cyan)"></span>A</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>B</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>P</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span>E</div>
+                    <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>C</div>
+                </div>
+            </div>
+
+            <div class="output-cards">
+                <div class="panel-card result-card" id="result-panel" style="display:none"><div class="card-title">SIMULATION RESULT</div><div id="result-content"></div><div id="result-verdict" class="result-verdict"></div></div>
+                <div class="panel-card hint-card" id="hint-panel" style="display:none"><div class="card-title">NEXT GATE NEEDED</div><div id="hint-content"></div></div>
+            </div>
+
+            <div class="truth-table-container" id="truth-table-panel">
+                <div class="card-title">TRUTH TABLE</div>
+                <div id="truth-table-content" class="classical-content">
+                    <div style="opacity:0.5">The live truth table will appear here as you build the circuit.</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT PANEL — Target, Booth Digits, Controls, Metrics -->
+        <aside class="right-panel" id="right-panel">
+            <div class="panel-section">
+                <div class="section-label">TARGET</div>
+                <div class="target-display">
+                    <span id="target-decimal" class="target-big">3 &times; 3 = 9</span>
+                    <span id="target-binary" class="target-small">2-bit signed: A=11 | B=11 | P=1001</span>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label" style="color:var(--pink)">ANSWER SO FAR</div>
+                <div class="target-display" style="border-color: rgba(255,45,111,0.3); background: rgba(255,45,111,0.05)">
+                    <span id="out-decimal" class="target-big" style="color:var(--pink)">P = ?</span>
+                    <span id="out-binary" class="target-small" style="color:var(--text-mid)">Place gates to see output</span>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">BOOTH STORY</div>
+                <div id="booth-story-panel" class="classical-content">
+                    <div style="opacity:0.5">Choose A and B, then place gates. This panel explains Booth in plain language, why only four inputs are allowed, and why the circuit is doing this phase now.</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">WHAT JUST HAPPENED</div>
+                <div id="gate-info-panel" class="gate-info-content">
+                    <div style="opacity:0.5;font-size:0.85em">Place a gate to get a plain-English explanation of what changed, why this exact spot is correct, and why the step belongs now.</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">WATCH THE ANSWER BUILD UP</div>
+                <div id="timeline-state" class="classical-content">
+                    <div style="opacity:0.5">Place gates to watch the answer build up step by step.</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">CONTROLS</div>
+                <button class="btn-check" id="btn-check">&zwnj;&#9889; Check Circuit</button>
+                <div class="btn-row"><button class="btn-action btn-clear" id="btn-clear">Clear All</button><button class="btn-action btn-hint" id="btn-hint">Show Hint</button></div>
+                <button class="btn-solution" id="btn-solution">Load Solution</button>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">METRICS</div>
+                <div class="metrics-grid">
+                    <span class="metric-label">Toffoli (CCX)</span><span class="metric-value" id="m-ccx" style="color:var(--pink)">0</span>
+                    <span class="metric-label">CNOT (CX)</span><span class="metric-value" id="m-cx" style="color:var(--purple)">0</span>
+                    <span class="metric-label">Pauli-X</span><span class="metric-value" id="m-x" style="color:var(--cyan)">0</span>
+                    <span class="metric-label">Total gates</span><span class="metric-value" id="m-total">0</span>
+                </div>
+                <div class="qubit-count"><span>Qubits</span><span class="qubit-number">12</span></div>
+                <div class="qubit-breakdown">2A + 2B + 4P + 2E + 2C</div>
+                <div id="opt-metrics" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:none">
+                    <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);margin-bottom:4px">OPTIMIZED (TRANSPILED)</div>
+                    <div class="metrics-grid">
+                        <span class="metric-label">CX gates</span><span class="metric-value" id="m-opt-cx" style="color:var(--purple)">0</span>
+                        <span class="metric-label">Circuit depth</span><span class="metric-value" id="m-opt-depth" style="color:var(--yellow)">0</span>
+                        <span class="metric-label">Total (opt)</span><span class="metric-value" id="m-opt-total" style="color:var(--green)">0</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="/static/js/circuit.js"></script>
+    <script src="/static/js/tutorial.js"></script>
+</body>
+</html>

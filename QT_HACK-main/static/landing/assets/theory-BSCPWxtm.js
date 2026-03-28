@@ -1,0 +1,1 @@
+import{n as e,t}from"./jsx-runtime-CG1mpaQU.js";import{t as n}from"./TheoryPage-CVLqZPTz.js";var r=e(),i=t();(0,r.createRoot)(document.getElementById(`root`)).render((0,i.jsx)(n,{}));

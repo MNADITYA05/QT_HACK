@@ -1,0 +1,5 @@
+flask
+flask-cors
+gunicorn
+qiskit
+qiskit-aer
